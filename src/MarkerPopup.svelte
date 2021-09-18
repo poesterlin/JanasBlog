@@ -1,30 +1,19 @@
 <script>
-	import { createEventDispatcher } from 'svelte';
-	const dispatch = createEventDispatcher();
-	
-	export let count;
-	
-	function addValue(delta) {
-		count += delta;
-		dispatch('change', count);
-	}
+  import { createEventDispatcher } from "svelte";
+
+  export let data;
 </script>
 
 <style>
-	button {
-		width: 2rem
+	div{
+		
 	}
 </style>
 
-<div>
-	<button on:click={() => addValue(-1)}>
-		-
-	</button>
-	<button on:click={() => addValue(1)}>
-		+
-	</button>	
-</div>
-
 <div style="width:100%;text-align:center;font-weight:600">
-	{count}
+  <b>{data.Name}</b>
+  <div>
+    Jana sagt:
+    <p>{data.Rezension}</p>
+  </div>
 </div>
