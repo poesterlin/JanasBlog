@@ -2,18 +2,21 @@
   import { createEventDispatcher } from "svelte";
 
   export let data;
+
+  $: html = data.Rezension.replace(/\|/gm, "<br>").replace(/\n/gm, "<br>");
 </script>
 
 <style>
-	div{
-		
-	}
+  div {
+  }
 </style>
 
-<div style="width:100%;text-align:center;font-weight:600">
-  <b>{data.Name}</b>
+<div>
+  <h1>{data.Name}</h1>
   <div>
-    Jana sagt:
-    <p>{data.Rezension}</p>
+    <b>Jana sagt:</b>
+    <p>
+      {@html html}
+    </p>
   </div>
 </div>

@@ -5,7 +5,6 @@ export async function fetchDocs() {
     const csv = await fetch(docsUrl).then(res => res.text());
     const lines = csv.split("\r\n");
     const first = lines[0].split(",");
-    console.log(first)
     const objs = [];
 
     const data = lines.slice(1).map(l => l.split(/(?!\B"[^"]*),(?![^"]*"\B)/gm));
