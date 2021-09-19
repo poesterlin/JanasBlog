@@ -26,14 +26,14 @@ async function precache() {
 async function fromCache(request) {
     const cache = await caches.open(CACHE);
     let resp = await cache.match(request);
-
-    if (!resp) {
+    const skipCache = request.url.endsWith(".js") || request.url.endsWith(".css") || request.url.endsWith(".map")
+    if (!resp || skipCache) {
         resp = await fetch(request);
         try {
             await cache.put(request, resp.clone());
         } catch { }
     } else {
-        fetch(request).then(r => cache.put(request, r))
+        fetch(request).then(r => cache.put(request, r)).catch();
     }
     return resp;
 }

@@ -19,7 +19,7 @@
 
   const initialView = [52.520008, 13.404954];
   function createMap(container) {
-    let m = L.map(container, { preferCanvas: true }).setView(initialView, 10);
+    let m = L.map(container, { preferCanvas: true }).setView(initialView, 13);
     L.tileLayer(
       "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",
       {
@@ -48,7 +48,7 @@
 
     toolbarComponent.$on("click-eye", ({ detail }) => (eye = detail));
     toolbarComponent.$on("click-reset", () => {
-      map.setView(initialView, 10, { animate: true });
+      map.setView(initialView, 13, { animate: true });
     });
 
     return div;

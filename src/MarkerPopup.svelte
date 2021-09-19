@@ -4,6 +4,7 @@
   export let data;
 
   $: html = data.Rezension.replace(/\|/gm, "<br>").replace(/\n/gm, "<br>");
+  $: linkHref = data.Link.replace(/"/gm, "");
 </script>
 
 <style>
@@ -19,6 +20,6 @@
       <b>Jana sagt:</b> <br>
       {@html html}
     </p>
-    <a href={data.Link}>Link</a>
+    <a href={linkHref} target="_blank">Link</a>
   </div>
 </div>
