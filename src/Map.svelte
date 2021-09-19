@@ -2,7 +2,7 @@
   import L from "leaflet";
   import MapToolbar from "./MapToolbar.svelte";
   import MarkerPopup from "./MarkerPopup.svelte";
-  import { jana } from "./markers.ts";
+  import { bubble } from "./markers.ts";
   import { fetchDocs, getCoords } from "./data.ts";
   let map;
 
@@ -10,7 +10,7 @@
     const csv = await fetchDocs();
 
     const markers = csv.forEach(line => {
-      const m = createMarker(getCoords(line["Google Maps Url"]), line);
+      const m = createMarker(getCoords(line["Koordinaten"]), line);
       markerLayers.addLayer(m);
     });
   }
@@ -26,7 +26,7 @@
         attribution: `&copy;<a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>,
 	        &copy;<a href="https://carto.com/attributions" target="_blank">CARTO</a>`,
         subdomains: "abcd",
-        maxZoom: 14
+        maxZoom: 16
       }
     ).addTo(m);
 
@@ -85,7 +85,7 @@
 
   function markerIcon(count) {
     let html = `<div class="map-marker">
-	<div>${jana}</div>
+	<div>${bubble}</div>
 	<div class="marker-text">${count}</div>
 </div>`;
     return L.divIcon({

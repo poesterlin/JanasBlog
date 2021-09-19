@@ -13,10 +13,12 @@
 
 <div>
   <h1>{data.Name}</h1>
+  <b>Jana gibt: {data.Sterne}</b> <br>
   <div>
-    <b>Jana sagt:</b>
     <p>
+      <b>Jana sagt:</b> <br>
       {@html html}
     </p>
+    <a href={data.Link}>Link</a>
   </div>
 </div>

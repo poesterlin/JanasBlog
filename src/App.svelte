@@ -11,6 +11,8 @@
     const reg = await navigator.serviceWorker.ready;
     console.log("ready", reg);
     loading = false;
+
+    reg.update();
   });
 
 </script>

@@ -18,7 +18,7 @@ export async function fetchDocs() {
 
 
 export function getCoords(url: string) {
-    const regex = /(?<lat>[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?)),(?<long>\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?))/g;
+    const regex = /(?<lat>[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?)),\s*(?<long>\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?))/g;
     const { groups: { lat, long } } = regex.exec(url);
     return { lat: parseFloat(lat), long: parseFloat(long) }
 }

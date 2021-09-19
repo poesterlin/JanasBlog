@@ -1,6 +1,5 @@
 // @ts-check
 const CACHE = 'cache-and-update';
-const dev = true;
 
 self.addEventListener('install', function (evt) {
     console.log('The service worker is being installed.');
@@ -8,16 +7,11 @@ self.addEventListener('install', function (evt) {
 });
 
 self.addEventListener('fetch', function (evt) {
-    console.log('The service worker is serving the asset.');
     evt.respondWith(fromCache(evt.request));
 });
 
 async function precache() {
     const cache = await caches.open(CACHE);
-    // await cache.addAll([
-    //     './fallback.png',
-    //     'build',
-    // ]);
     const hasFallback = await cache.match('/fallback.png');
     if (hasFallback) {
         return;
@@ -32,27 +26,14 @@ async function precache() {
 async function fromCache(request) {
     const cache = await caches.open(CACHE);
     let resp = await cache.match(request);
-    const skipCache = request.url.startsWith("http://localhost:");
-    if (!resp || skipCache) {
+
+    if (!resp) {
+        resp = await fetch(request);
         try {
-            resp = await fetch(request);
             await cache.put(request, resp.clone());
-        } catch {
-            if (request.url.endsWith(".png")) {
-                resp = await cache.match('/fallback.png');
-            }
-        }
+        } catch { }
+    } else {
+        fetch(request).then(r => cache.put(request, r))
     }
     return resp;
-}
-
-async function update(request) {
-    const cache = await caches.open(CACHE);
-    try {
-        const response = await fetch(request);
-        await cache.put(request, response.clone());
-        return response;
-    } catch (error) {
-        console.log(error)
-    }
 }
