@@ -83,10 +83,11 @@
 
   let markers = new Map();
 
-  function markerIcon(count) {
+  function markerIcon(count, color) {
     let html = `<div class="map-marker">
-	<div>${bubble}</div>
-	<div class="marker-text">${count}</div>
+	<div>${bubble(color || "black")}</div>
+	<div class="marker-text" style="background-color:${color ||
+    "black"}">${count}</div>
 </div>`;
     return L.divIcon({
       html,
@@ -98,7 +99,7 @@
     loc: { lat: number; long: number },
     data: { Name: string; Rezension: string; Sterne: string }
   ) {
-    const icon = markerIcon(data.Sterne);
+    const icon = markerIcon(data.Sterne, data.Hex);
     const marker = L.marker([loc.lat, loc.long], { icon });
 
     bindPopup(marker, m => {
@@ -153,9 +154,11 @@
     width: min-content;
     text-align: center;
     font-weight: 600;
-    background-color: #444;
-    color: #eee;
-    border-radius: 0.5rem;
+    border-radius: 0.4rem;
+    padding: 0 3px;
+    filter: saturate(0.3) brightness(1.5) opacity(0.6);
+    transform: translateY(-6px);
+    font-size: 8px;
   }
 
   .map :global(.map-marker) {
