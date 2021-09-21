@@ -99,7 +99,7 @@
     loc: { lat: number; long: number },
     data: { Name: string; Rezension: string; Sterne: string }
   ) {
-    const icon = markerIcon(data.Sterne, data.Hex);
+    const icon = markerIcon(data.Sterne, data.Farbe);
     const marker = L.marker([loc.lat, loc.long], { icon });
 
     bindPopup(marker, m => {
